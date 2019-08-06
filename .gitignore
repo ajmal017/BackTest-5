@@ -1,6 +1,7 @@
+*.pyc
 Scripts/
-OUtputs/
-__pycache/
+Outputs/
+__pycache__/
 .ipynb_checkpoints/
 .vscode/
 static/
@@ -13,3 +14,4 @@ stockPY.py
 test.py
 backtestingg.py
 wsgi.py
+BackTestenv

@@ -34,9 +34,9 @@ $ pip install -r requirements.txt
 ```
 Running the server
 ```
-$ python BackTest.py
+$ gunicorn --workers (2*<number of cores>+1) --bind 0.0.0.0:5000 wsgi:app
 ```
-The application will now be running on https://localhost:5000/
+The application will now be running on https://<your_IP_Address>:5000/
 
 ## Built With<a name="built_with"></a>
 + [Python](https://www.python.org/) - Language
@@ -50,5 +50,6 @@ The application will now be running on https://localhost:5000/
 
 ## Authors<a name="authors"></a>
 + [Roshan James](https://github.com/sephiroth7712) <br>
++ Suraj <br>
 + [Mayur Kadam](https://github.com/mayurkadampro) <br>
 + Rajendra Vinod Patil<br>

@@ -7,8 +7,9 @@ import json
 import os
 load_dotenv('.env')
 app = Flask(__name__)
+from flask_cors import CORS
 app.config['SECRET_KEY'] = 'secret!'
-
+CORS(app)
 
 @app.route('/')
 def hello_world():
@@ -56,7 +57,7 @@ def send_algo():
         open("./Outputs/"+name+'.json', 'w').close()
         name = name.strip()
         fd.compute(entry_algo,exit_algo,stop_loss,take_profit,quantity,start_cash,start_year,start_month,start_day,end_year,end_month,end_day,start_time,end_time,name)
-        os.system("python ./Scripts/"+name+".py")
+        os.system("python3 ./Scripts/"+name+".py")
         with open("./Outputs/"+name+'.json','r') as f:
             output.append(json.load(f))
             f.close()
