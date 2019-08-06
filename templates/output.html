@@ -1,0 +1,41 @@
+<html>
+
+<head>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+        
+        table,
+        th,
+        td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    {% for company,name in output %}
+    <div class="container" style="float: left;">
+        <h3 style="align-content: center">{{ name }}</h3>
+        <div class="container" style="max-height: 90%; overflow: auto;">
+            <table>
+                <tr>
+                    <th>Date</th>
+                    <th>Action</th>
+                    <th>Price</th>
+                </tr>
+                {% for item in company %}
+                <tr>
+                    <td>{{ item.date }}</td>
+                    <td>{{ item.action }}</td>
+                    <td>{{ item.price }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+    {% endfor %}
+</body>
+
+</html>

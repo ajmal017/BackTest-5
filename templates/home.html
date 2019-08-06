@@ -1,0 +1,166 @@
+<html>
+
+<head>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+        
+        table,
+        th,
+        td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script type="text/javascript" charset="utf-8">
+        function get_output(val) {
+            $.get("/send_output/", "name=" + val, function(data) {
+                var tab = window.open('about:blank', '_blank');
+                tab.document.write(data);
+                tab.document.close();
+            });
+        }
+
+        function myFunction() {
+            var btn = document.getElementById("submit")
+            if (btn != null) {
+                btn.parentNode.removeChild(btn)
+            }
+            var elem = document.getElementById("status_table")
+            if (elem != null) {
+                elem.parentNode.removeChild(elem)
+            }
+            var company_name = document.data_inputs.company_name.value.split(",")
+            var len = company_name.length
+            var table = document.createElement("table")
+            table.setAttribute("id", "status_table")
+            var row = document.createElement("tr")
+            var header1 = document.createElement("th")
+            var header2 = document.createElement("th")
+            var x = document.createTextNode("Symbol")
+            var y = document.createTextNode("Status")
+            header1.append(x)
+            header2.append(y)
+            row.append(header1)
+            row.append(header2)
+            table.append(row)
+            var i = 0
+            for (i = 0; i < company_name.length; i++) {
+                row = document.createElement("tr")
+                var data1 = document.createElement("td")
+                var data2 = document.createElement("td")
+                x = document.createTextNode(company_name[i])
+                y = document.createElement("button")
+                y.setAttribute("id", company_name[i])
+                y.innerHTML = "Incomplete"
+                data1.append(x)
+                data2.append(y)
+                row.append(data1)
+                row.append(data2)
+                table.append(row)
+            }
+            var element = document.getElementById("div1");
+            element.appendChild(table);
+            var i = 0
+
+            function nextCompany() {
+                if (i < company_name.length) {
+                    console.log(company_name[i])
+                    btn = document.getElementById(company_name[i])
+                    btn.innerHTML = "Running"
+                    var data = {
+                        entry_algo: document.data_inputs.entry_algo.value,
+                        exit_algo: document.data_inputs.exit_algo.value,
+                        stop_loss: document.data_inputs.stop_loss.value,
+                        take_profit: document.data_inputs.take_profit.value,
+                        quantity: document.data_inputs.quantity.value,
+                        start_cash: document.data_inputs.start_cash.value,
+                        start_year: document.data_inputs.start_year.value,
+                        start_month: document.data_inputs.start_month.value,
+                        start_day: document.data_inputs.start_day.value,
+                        end_year: document.data_inputs.end_year.value,
+                        end_month: document.data_inputs.end_month.value,
+                        end_day: document.data_inputs.end_day.value,
+                        start_time: document.data_inputs.start_time.value,
+                        end_time: document.data_inputs.end_time.value,
+                        stock_name: company_name[i]
+                    }
+                    var name = company_name[i];
+                    $.ajax({
+                        type: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify(data),
+                        dataType: 'json',
+                        url: 'http://localhost:5000/send_algo',
+                    }).then(function(e) {
+                        console.log("worked")
+                        console.log(data.stock_name)
+                        btn = document.getElementById(data.stock_name)
+                        btn.setAttribute("value", data.stock_name)
+                        btn.setAttribute("onclick", "get_output(this.value)")
+                        btn.innerHTML = "Complete"
+                        nextCompany()
+                    }, function() {
+                        alert("error")
+                    });
+                    i += 1
+                }
+            }
+            nextCompany();
+            var x = document.getElementById('main')
+            btn = document.createElement("button")
+            btn.setAttribute("onclick", "myFunction()")
+            btn.setAttribute("id", "submit")
+            btn.innerHTML = "Submit"
+            x.append(btn)
+            return false;
+        };
+    </script>
+    <div class="container" style="float: left">
+        <table>
+            <tr>
+                <th>Indicator</th>
+                <th>Symbol</th>
+            </tr>
+            {% for item in Indicators %}
+            <tr>
+                <td>{{ item.Indicator }}</td>
+                <td>{{ item.Symbol }}</td>
+            </tr>
+            {% endfor %}
+            <tr></tr>
+        </table>
+    </div>
+    <div class="container" style="float: left" id="main">
+
+        <form onsubmit="return false" id="data_inputs" name="data_inputs">
+            Entry Algo : <input type="text" name="entry_algo" value="sma(10) > sma(20)">
+            <br>Exit Algo : <input type="text" name="exit_algo" value="sma(10) < sma(30)">
+            <br>Stop Loss % : <input type="text" name="stop_loss" value="5">
+            <br>Take Profit % : <input type="text" name="take_profit" value="10">
+            <br>Quantity : <input type="text" name="quantity" value="10">
+            <br>Starting Cash : <input type="text" name="start_cash" value="10000000">
+            <br>Start Year : <input type="text" name="start_year" value='2017'>
+            <br>Start Month : <input type="text" name="start_month" value="1">
+            <br>Start Day : <input type="text" name="start_day" value="1">
+            <br>End Year : <input type="text" name="end_year" value="2019">
+            <br>End Month : <input type="text" name="end_month" value="1">
+            <br>End Day : <input type="text" name="end_day" value="1">
+            <br>Start Time : <input type="text" name="start_time" value="9:15">
+            <br>End Time : <input type="text" name="end_time" value="3:30">
+            <br>Company Name : <input type=" text " name="company_name" value="TCS.NS">
+        </form>
+        <button onclick="myFunction()" id="submit">Submit</button>
+
+    </div>
+    <div id="div1">
+
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,843 @@
+{
+    "scripList": [{
+        "symbol": "TCS",
+        "segment": "NSE"
+    }],
+    "candleInterval": "1 Day",
+    "positionType": "Sell",
+    "quantity": "100",
+    "stopLoss": "2.0",
+    "takeProfit": "5.0",
+    "algo_name": "NIKI",
+    "order_type": "CNC/NRML",
+    "disabled": false,
+    "entryIndicators": [{
+            "indicator": "100 rsi",
+            "indicatorItem": {
+                "html_tags": "ti_tags",
+                "name": "RSI",
+                "allowed_comparison": [
+                    "Numbers",
+                    "RSI"
+                ],
+                "allowed_comparision": [
+                    "Numbers",
+                    "RSI"
+                ],
+                "classtype": "rsi",
+                "function_group": "RSI",
+                "tooltip": "Relative Strength Index",
+                "syntax": "<period> RSI",
+                "function_type": "Momentum Indicators",
+                "tag": "technical_indicator",
+                "params": [
+                    [
+                        "period",
+                        14,
+                        true
+                    ]
+                ],
+                "examples": [
+                    "5 min backs 15 min RSI",
+                    "9 day RSI"
+                ],
+                "suffix": [
+                    "comparator"
+                ],
+                "class": "rsi",
+                "description": "Relative strength index"
+            },
+            "compareIndicatorItem": {
+                "html_tags": "field_tags",
+                "name": "Number",
+                "allowed_comparision": [
+                    "Overlap Studies",
+                    "Momentum Indicators",
+                    "Volume Indicators",
+                    "Volume",
+                    "Numbers"
+                ],
+                "classtype": "enter_float",
+                "function_group": "Numbers",
+                "tooltip": "Number",
+                "syntax": "<number>",
+                "tag": "constants",
+                "params": [
+                    [
+                        "number",
+                        "0.0",
+                        true
+                    ]
+                ],
+                "examples": [
+                    "120000"
+                ],
+                "suffix": [
+                    "comparator"
+                ],
+                "class": "number",
+                "description": "Number"
+            },
+            "comparator": "higher than",
+            "compareIndicatorValid": true,
+            "indicatorValid": true,
+            "selected_candle_interval": null,
+            "compareIndicator": "20",
+            "comparatorItem": {
+                "name": "higher than"
+            },
+            "compareIndicatorDetails": {
+                "number": "20"
+            },
+            "id": "12987959827533926888",
+            "indicatorDetails": {
+                "period": "100"
+            },
+            "andor": "or"
+        },
+        {
+            "indicator": "20 ema",
+            "indicatorItem": {
+                "html_tags": "ti_tags",
+                "name": "EMA",
+                "allowed_comparison": [
+                    "Overlap Studies",
+                    "BollingerBand",
+                    "Math operators",
+                    "Numbers",
+                    "Price",
+                    "ATR Bands"
+                ],
+                "allowed_comparision": [
+                    "Overlap Studies",
+                    "BollingerBand",
+                    "Math operators",
+                    "Numbers",
+                    "Price",
+                    "ATR Bands"
+                ],
+                "classtype": "ema",
+                "function_group": "Overlap Studies",
+                "tooltip": "Exponetial Moving Average",
+                "syntax": "<period> EMA",
+                "tag": "technical_indicator",
+                "params": [
+                    [
+                        "period",
+                        20,
+                        true
+                    ]
+                ],
+                "examples": [
+                    "2 min ago 20 min ema",
+                    "20 min ema"
+                ],
+                "suffix": [
+                    "comparator"
+                ],
+                "class": "ema",
+                "description": "Exponential moving average"
+            },
+            "compareIndicatorItem": {
+                "html_tags": "ohlcv_tags",
+                "name": "previous High",
+                "allowed_comparision": [
+                    "Overlap Studies",
+                    "Momentum Indicators",
+                    "Numbers",
+                    "Price",
+                    "BollingerBand",
+                    "Supertrend",
+                    "ATR Bands"
+                ],
+                "classtype": "enter_float",
+                "function_group": "Price",
+                "tooltip": "High",
+                "syntax": "previous High",
+                "tag": "constants",
+                "params": [],
+                "examples": [
+                    "1 mins back high"
+                ],
+                "suffix": [
+                    "comparator"
+                ],
+                "class": "prev_high",
+                "description": "Previous candle's high price"
+            },
+            "comparator": "crosses above",
+            "compareIndicatorValid": true,
+            "indicatorValid": true,
+            "selected_candle_interval": null,
+            "compareIndicator": "previous high",
+            "comparatorItem": {
+                "name": "crosses above"
+            },
+            "compareIndicatorDetails": {},
+            "id": "12987959831828894184",
+            "indicatorDetails": {
+                "period": "20"
+            },
+            "andor": "or"
+        },
+        {
+            "indicator": "Stochastic RSI(14,Close,FastD,3,3)",
+            "indicatorItem": {
+                "html_tags": "ti_tags",
+                "name": "Stochastic RSI",
+                "allowed_comparison": [
+                    "Stochastic RSI",
+                    "Numbers"
+                ],
+                "allowed_comparision": [
+                    "Stochastic RSI",
+                    "Numbers"
+                ],
+                "classtype": "stochastic_rsi",
+                "function_group": "Stochastic RSI",
+                "tooltip": "Stochastic RSI",
+                "syntax": "Stochastic RSI(<period>,<field>,<type>,<K_period>,<D_period>)",
+                "tag": "technical_indicator",
+                "params": [
+                    [
+                        "period",
+                        14,
+                        true
+                    ],
+                    [
+                        "field",
+                        "Close",
+                        true,
+                        "dropdown", [
+                            "Open",
+                            "High",
+                            "Low",
+                            "Close"
+                        ]
+                    ],
+                    [
+                        "type",
+                        "Fastk",
+                        true,
+                        "dropdown", [
+                            "Fastk",
+                            "FastD"
+                        ]
+                    ],
+                    [
+                        "K_period",
+                        3,
+                        true
+                    ],
+                    [
+                        "D_period",
+                        3,
+                        true
+                    ]
+                ],
+                "examples": [
+                    "2 min ago 20 min sma",
+                    "20 min sma"
+                ],
+                "suffix": [
+                    "comparator"
+                ],
+                "class": "stochastic_rsi",
+                "description": "Stochastic RSI"
+            },
+            "andor": "and",
+            "comparator": "crosses below",
+            "compareIndicatorValid": true,
+            "indicatorValid": true,
+            "indicatorDetails": {
+                "D_period": "3",
+                "field": "Close",
+                "type": "FastD",
+                "period": "14",
+                "K_period": "3"
+            },
+            "compareIndicator": "5",
+            "selected_candle_interval": null,
+            "comparatorItem": {
+                "name": "crosses below"
+            },
+            "compareIndicatorDetails": {
+                "number": "5"
+            },
+            "id": 1527914220842,
+            "compareIndicatorItem": {
+                "html_tags": "field_tags",
+                "name": "Number",
+                "allowed_comparision": [
+                    "Overlap Studies",
+                    "Momentum Indicators",
+                    "Volume Indicators",
+                    "Volume",
+                    "Numbers"
+                ],
+                "classtype": "enter_float",
+                "function_group": "Numbers",
+                "tooltip": "Number",
+                "syntax": "<number>",
+                "tag": "constants",
+                "params": [
+                    [
+                        "number",
+                        "0.0",
+                        true
+                    ]
+                ],
+                "examples": [
+                    "120000"
+                ],
+                "suffix": [
+                    "comparator"
+                ],
+                "class": "number",
+                "description": "Number"
+            }
+        }
+    ],
+    "exitIndicators": [{
+        "indicator": "macd(12,26,9)",
+        "indicatorItem": {
+            "html_tags": "ti_tags",
+            "name": "MACD",
+            "allowed_comparison": [
+                "Numbers",
+                "MACD"
+            ],
+            "allowed_comparision": [
+                "Numbers",
+                "MACD"
+            ],
+            "classtype": "macd",
+            "function_group": "MACD",
+            "tooltip": "Moving Average Convergence / Divergence Oscillator",
+            "syntax": "MACD(<Fast_MA_period>,<Slow_MA_period>,<Signal_period>)",
+            "function_type": "Momentum Indicators",
+            "tag": "technical_indicator",
+            "params": [
+                [
+                    "Fast_MA_period",
+                    12,
+                    true
+                ],
+                [
+                    "Slow_MA_period",
+                    26,
+                    true
+                ],
+                [
+                    "Signal_period",
+                    9,
+                    true
+                ]
+            ],
+            "examples": [
+                "2 days ago 5min MACD(12,26,9)"
+            ],
+            "suffix": [
+                "comparator"
+            ],
+            "class": "macd",
+            "description": "Moving Average Convergence/Divergence"
+        },
+        "compareIndicatorItem": {
+            "html_tags": "ti_tags",
+            "name": "MACD-signal",
+            "allowed_comparision": [
+                "Numbers",
+                "MACD"
+            ],
+            "classtype": "macd_signal",
+            "function_group": "MACD",
+            "tooltip": "MACD signal",
+            "syntax": "MACD signal(<Fast_MA_period>,<Slow_MA_period>,<Signal_period>)",
+            "function_type": "Momentum Indicators",
+            "tag": "technical_indicator",
+            "params": [
+                [
+                    "Fast_MA_period",
+                    12,
+                    true
+                ],
+                [
+                    "Slow_MA_period",
+                    26,
+                    true
+                ],
+                [
+                    "Signal_period",
+                    9,
+                    true
+                ]
+            ],
+            "examples": [
+                "2 days ago 5min MACDsignal(12,26,9)"
+            ],
+            "suffix": [
+                "comparator"
+            ],
+            "class": "macd_signal",
+            "description": "MACD signal"
+        },
+        "comparator": "crosses below",
+        "compareIndicatorValid": true,
+        "indicatorValid": true,
+        "selected_candle_interval": null,
+        "compareIndicator": "macd signal(12,26,9)",
+        "comparatorItem": {
+            "name": "crosses below"
+        },
+        "compareIndicatorDetails": {
+            "fast_period": "12",
+            "slow_period": "26",
+            "signal_period": "9"
+        },
+        "id": "12987959836123861480",
+        "indicatorDetails": {
+            "fast_period": "12",
+            "slow_period": "26",
+            "signal_period": "9"
+        },
+        "andor": "and"
+    }],
+    "exitAndOrs": [
+        "and",
+        "and",
+        "and"
+    ],
+    "entryAndOrs": [
+        "and",
+        "or",
+        "or",
+        "and",
+        "and",
+        "or",
+        "or",
+        "and"
+    ],
+    "scripValid": true,
+    "entryValid": true,
+    "exitValid": true,
+    "algoNameValid": true,
+    "editMode": true,
+    "show_advance": true,
+    "chart_type": "Candlestick chart",
+    "trading_start_time": "09:15",
+    "trading_stop_time": "12:30",
+    "showExitIndicator": true,
+    "edit": true,
+    "show_renko_selection": false,
+    "show_chart": false,
+    "assist": true,
+    "assistMode": false,
+    "imgProps": {},
+    "completeTour": false,
+    "imgs": [
+        "/static/media/create_tour_1.f47f060a.gif",
+        "/static/media/create_tour_3.2b49c0d6.gif",
+        "/static/media/create_tour_4.294098a7.gif"
+    ],
+    "showMultiChipModal": false,
+    "gotAlgoState": true,
+    "scrollEnabled": true,
+    "entryIndictors": [{
+            "indicator": "100 rsi",
+            "indicatorItem": {
+                "html_tags": "ti_tags",
+                "name": "RSI",
+                "allowed_comparison": [
+                    "Numbers",
+                    "RSI"
+                ],
+                "allowed_comparision": [
+                    "Numbers",
+                    "RSI"
+                ],
+                "classtype": "rsi",
+                "function_group": "RSI",
+                "tooltip": "Relative Strength Index",
+                "syntax": "<period> RSI",
+                "function_type": "Momentum Indicators",
+                "tag": "technical_indicator",
+                "params": [
+                    [
+                        "period",
+                        14,
+                        true
+                    ]
+                ],
+                "examples": [
+                    "5 min backs 15 min RSI",
+                    "9 day RSI"
+                ],
+                "suffix": [
+                    "comparator"
+                ],
+                "class": "rsi",
+                "description": "Relative strength index"
+            },
+            "compareIndicatorItem": {
+                "html_tags": "field_tags",
+                "name": "Number",
+                "allowed_comparision": [
+                    "Overlap Studies",
+                    "Momentum Indicators",
+                    "Volume Indicators",
+                    "Volume",
+                    "Numbers"
+                ],
+                "classtype": "enter_float",
+                "function_group": "Numbers",
+                "tooltip": "Number",
+                "syntax": "<number>",
+                "tag": "constants",
+                "params": [
+                    [
+                        "number",
+                        "0.0",
+                        true
+                    ]
+                ],
+                "examples": [
+                    "120000"
+                ],
+                "suffix": [
+                    "comparator"
+                ],
+                "class": "number",
+                "description": "Number"
+            },
+            "comparator": "higher than",
+            "compareIndicatorValid": true,
+            "indicatorValid": true,
+            "selected_candle_interval": null,
+            "compareIndicator": "20",
+            "comparatorItem": {
+                "name": "higher than"
+            },
+            "compareIndicatorDetails": {
+                "number": "20"
+            },
+            "id": "12987959827533926888",
+            "indicatorDetails": {
+                "period": "100"
+            },
+            "andor": "or"
+        },
+        {
+            "indicator": "20 ema",
+            "indicatorItem": {
+                "html_tags": "ti_tags",
+                "name": "EMA",
+                "allowed_comparison": [
+                    "Overlap Studies",
+                    "BollingerBand",
+                    "Math operators",
+                    "Numbers",
+                    "Price",
+                    "ATR Bands"
+                ],
+                "allowed_comparision": [
+                    "Overlap Studies",
+                    "BollingerBand",
+                    "Math operators",
+                    "Numbers",
+                    "Price",
+                    "ATR Bands"
+                ],
+                "classtype": "ema",
+                "function_group": "Overlap Studies",
+                "tooltip": "Exponetial Moving Average",
+                "syntax": "<period> EMA",
+                "tag": "technical_indicator",
+                "params": [
+                    [
+                        "period",
+                        20,
+                        true
+                    ]
+                ],
+                "examples": [
+                    "2 min ago 20 min ema",
+                    "20 min ema"
+                ],
+                "suffix": [
+                    "comparator"
+                ],
+                "class": "ema",
+                "description": "Exponential moving average"
+            },
+            "compareIndicatorItem": {
+                "html_tags": "ohlcv_tags",
+                "name": "previous High",
+                "allowed_comparision": [
+                    "Overlap Studies",
+                    "Momentum Indicators",
+                    "Numbers",
+                    "Price",
+                    "BollingerBand",
+                    "Supertrend",
+                    "ATR Bands"
+                ],
+                "classtype": "enter_float",
+                "function_group": "Price",
+                "tooltip": "High",
+                "syntax": "previous High",
+                "tag": "constants",
+                "params": [],
+                "examples": [
+                    "1 mins back high"
+                ],
+                "suffix": [
+                    "comparator"
+                ],
+                "class": "prev_high",
+                "description": "Previous candle's high price"
+            },
+            "comparator": "crosses above",
+            "compareIndicatorValid": true,
+            "indicatorValid": true,
+            "selected_candle_interval": null,
+            "compareIndicator": "previous high",
+            "comparatorItem": {
+                "name": "crosses above"
+            },
+            "compareIndicatorDetails": {},
+            "id": "12987959831828894184",
+            "indicatorDetails": {
+                "period": "20"
+            },
+            "andor": "or"
+        },
+        {
+            "indicator": "Stochastic RSI(14,Close,FastD,3,3)",
+            "indicatorItem": {
+                "html_tags": "ti_tags",
+                "name": "Stochastic RSI",
+                "allowed_comparison": [
+                    "Stochastic RSI",
+                    "Numbers"
+                ],
+                "allowed_comparision": [
+                    "Stochastic RSI",
+                    "Numbers"
+                ],
+                "classtype": "stochastic_rsi",
+                "function_group": "Stochastic RSI",
+                "tooltip": "Stochastic RSI",
+                "syntax": "Stochastic RSI(<period>,<field>,<type>,<K_period>,<D_period>)",
+                "tag": "technical_indicator",
+                "params": [
+                    [
+                        "period",
+                        14,
+                        true
+                    ],
+                    [
+                        "field",
+                        "Close",
+                        true,
+                        "dropdown", [
+                            "Open",
+                            "High",
+                            "Low",
+                            "Close"
+                        ]
+                    ],
+                    [
+                        "type",
+                        "Fastk",
+                        true,
+                        "dropdown", [
+                            "Fastk",
+                            "FastD"
+                        ]
+                    ],
+                    [
+                        "K_period",
+                        3,
+                        true
+                    ],
+                    [
+                        "D_period",
+                        3,
+                        true
+                    ]
+                ],
+                "examples": [
+                    "2 min ago 20 min sma",
+                    "20 min sma"
+                ],
+                "suffix": [
+                    "comparator"
+                ],
+                "class": "stochastic_rsi",
+                "description": "Stochastic RSI"
+            },
+            "andor": "and",
+            "comparator": "crosses below",
+            "compareIndicatorValid": true,
+            "indicatorValid": true,
+            "indicatorDetails": {
+                "D_period": "3",
+                "field": "Close",
+                "type": "FastD",
+                "period": "14",
+                "K_period": "3"
+            },
+            "compareIndicator": "5",
+            "selected_candle_interval": null,
+            "comparatorItem": {
+                "name": "crosses below"
+            },
+            "compareIndicatorDetails": {
+                "number": "5"
+            },
+            "id": 1527914220842,
+            "compareIndicatorItem": {
+                "html_tags": "field_tags",
+                "name": "Number",
+                "allowed_comparision": [
+                    "Overlap Studies",
+                    "Momentum Indicators",
+                    "Volume Indicators",
+                    "Volume",
+                    "Numbers"
+                ],
+                "classtype": "enter_float",
+                "function_group": "Numbers",
+                "tooltip": "Number",
+                "syntax": "<number>",
+                "tag": "constants",
+                "params": [
+                    [
+                        "number",
+                        "0.0",
+                        true
+                    ]
+                ],
+                "examples": [
+                    "120000"
+                ],
+                "suffix": [
+                    "comparator"
+                ],
+                "class": "number",
+                "description": "Number"
+            }
+        }
+    ],
+    "showScripModal": false,
+    "showScripList": false,
+    "exitIndictors": [{
+        "indicator": "macd(12,26,9)",
+        "indicatorItem": {
+            "html_tags": "ti_tags",
+            "name": "MACD",
+            "allowed_comparison": [
+                "Numbers",
+                "MACD"
+            ],
+            "allowed_comparision": [
+                "Numbers",
+                "MACD"
+            ],
+            "classtype": "macd",
+            "function_group": "MACD",
+            "tooltip": "Moving Average Convergence / Divergence Oscillator",
+            "syntax": "MACD(<Fast_MA_period>,<Slow_MA_period>,<Signal_period>)",
+            "function_type": "Momentum Indicators",
+            "tag": "technical_indicator",
+            "params": [
+                [
+                    "Fast_MA_period",
+                    12,
+                    true
+                ],
+                [
+                    "Slow_MA_period",
+                    26,
+                    true
+                ],
+                [
+                    "Signal_period",
+                    9,
+                    true
+                ]
+            ],
+            "examples": [
+                "2 days ago 5min MACD(12,26,9)"
+            ],
+            "suffix": [
+                "comparator"
+            ],
+            "class": "macd",
+            "description": "Moving Average Convergence/Divergence"
+        },
+        "compareIndicatorItem": {
+            "html_tags": "ti_tags",
+            "name": "MACD-signal",
+            "allowed_comparision": [
+                "Numbers",
+                "MACD"
+            ],
+            "classtype": "macd_signal",
+            "function_group": "MACD",
+            "tooltip": "MACD signal",
+            "syntax": "MACD signal(<Fast_MA_period>,<Slow_MA_period>,<Signal_period>)",
+            "function_type": "Momentum Indicators",
+            "tag": "technical_indicator",
+            "params": [
+                [
+                    "Fast_MA_period",
+                    12,
+                    true
+                ],
+                [
+                    "Slow_MA_period",
+                    26,
+                    true
+                ],
+                [
+                    "Signal_period",
+                    9,
+                    true
+                ]
+            ],
+            "examples": [
+                "2 days ago 5min MACDsignal(12,26,9)"
+            ],
+            "suffix": [
+                "comparator"
+            ],
+            "class": "macd_signal",
+            "description": "MACD signal"
+        },
+        "comparator": "crosses below",
+        "compareIndicatorValid": true,
+        "indicatorValid": true,
+        "selected_candle_interval": null,
+        "compareIndicator": "macd signal(12,26,9)",
+        "comparatorItem": {
+            "name": "crosses below"
+        },
+        "compareIndicatorDetails": {
+            "fast_period": "12",
+            "slow_period": "26",
+            "signal_period": "9"
+        },
+        "id": "12987959836123861480",
+        "indicatorDetails": {
+            "fast_period": "12",
+            "slow_period": "26",
+            "signal_period": "9"
+        },
+        "andor": "and"
+    }],
+    "scripValue": "",
+    "positionValid": true,
+    "time_frame": "day"
+}

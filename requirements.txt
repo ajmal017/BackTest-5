@@ -1,0 +1,6 @@
+flask
+requests
+dotenv
+datetime
+backtrader
+matplotlib

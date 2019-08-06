@@ -1,0 +1,85 @@
+[{
+        "Indicator": "Simple Moving Average",
+        "Symbol": "sma(period)"
+    },
+    {
+        "Indicator": "Exponential Moving Average",
+        "Symbol": "ema(period)"
+    },
+    {
+        "Indicator": "Average Directional Movement Index",
+        "Symbol": "adx(period)"
+    },
+    {
+        "Indicator": "Average True Range",
+        "Symbol": "atr(period)"
+    },
+    {
+        "Indicator": "Relative Strength Index",
+        "Symbol": "rsi(period)"
+    },
+    {
+        "Indicator": "Weighted Moving Average",
+        "Symbol": "wma(period)"
+    },
+    {
+        "Indicator": "Williams %R",
+        "Symbol": "willR(period)"
+    },
+    {
+        "Indicator": "Trix",
+        "Symbol": "trix(period)"
+    },
+    {
+        "Indicator": "Double Exponential Moving Average",
+        "Symbol": "dema(period)"
+    },
+    {
+        "Indicator": "Triple Exponential Moving Average",
+        "Symbol": "tema(period)"
+    },
+    {
+        "Indicator": "Zero Lag Exponential Moving Average",
+        "Symbol": "zlema(period)"
+    },
+    {
+        "Indicator": "Hull Moving Average",
+        "Symbol": "hma(period)"
+    },
+    {
+        "Indicator": "Awesome Oscillator",
+        "Symbol": "awo(fast period, slow period)"
+    },
+    {
+        "Indicator": "Dickson Moving Average",
+        "Symbol": "dma(period,gain limit,hperiod)"
+    },
+    {
+        "Indicator": "Ichimoku",
+        "Symbol": "ichi(tenkan,kijun,senkou,senkou_lead,chikou)"
+    },
+    {
+        "Indicator": "CrossOver",
+        "Symbol": "cov(indicator(params),indicator(params))"
+    },
+    {
+        "Indicator": "CrossDown",
+        "Symbol": "cdo(indicator(params),indicator(params))"
+    },
+    {
+        "Indicator": "CrossUp",
+        "Symbol": "cup(indicator(params),indicator(params))"
+    },
+    {
+        "Indicator": "Bollinger Bands",
+        "Symbol": "bband(period,devfactor)"
+    },
+    {
+        "Indicator": "Vortex",
+        "Symbol": "vortex(period)"
+    },
+    {
+        "Indicator": "Stochastic",
+        "Symbol": "sto(period,fast period,slow period)"
+    }
+]

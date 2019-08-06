@@ -1,0 +1,15 @@
+Scripts/
+OUtputs/
+__pycache/
+.ipynb_checkpoints/
+.vscode/
+static/
+algo.py
+*.zip
+*.csv
+data.json
+*.ipynb
+stockPY.py
+test.py
+backtestingg.py
+wsgi.py
