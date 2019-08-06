@@ -1,6 +1,6 @@
 
 <p align="center">BackTest</p>
-<p align="center">Open source platform for sharing legal document templates.</p>
+<p align="center">Open source backtesting tool.</p>
 
 # Table of Content
 + [Getting Started](#getting_started)
