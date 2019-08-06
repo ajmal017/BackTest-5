@@ -30,6 +30,7 @@ $ git clone <repo link>
 Installing the dependencies
 ```
 $ cd BackTest
+$ sudo apt-get install python3-pip
 $ pip install -r requirements.txt
 ```
 Running the server
