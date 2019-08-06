@@ -1,6 +1,6 @@
 flask
 requests
-dotenv
+python-dotenv
 datetime
 backtrader
 matplotlib
