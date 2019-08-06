@@ -4,3 +4,4 @@ dotenv
 datetime
 backtrader
 matplotlib
+gunicorn
