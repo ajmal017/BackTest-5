@@ -5,3 +5,5 @@ datetime
 backtrader
 matplotlib
 gunicorn
+eventlet
+gevent
