@@ -15,9 +15,8 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
-Ensure that python 3.7 and pip are already installed on the system
-Further instruction for installing the above can be found at [Python](https://www.python.org/downloads/) and [pip](https://pip.pypa.io/en/stable/installing/)
+Ensure that python 3.6 or higher and pip are already installed on the system<br>
+Further instruction for installing the above can be found at [Python](https://www.python.org/downloads/) and [pip](https://pip.pypa.io/en/stable/installing/)<br>
 
 ### Installing
 
@@ -42,6 +41,7 @@ The application will now be running on https://<your_IP_Address>:5000/
 ## Built With<a name="built_with"></a>
 + [Python](https://www.python.org/) - Language
 + [Flask](https://palletsprojects.com/p/flask/) - Server Framework
++ [Gunicorn](https://gunicorn.org/) - Python WSGI HTTP Server for UNIX
 + [Backtrader](https://www.backtrader.com/) - Backtesting module
 
 ## File Structure <a name="file_structure"></a>
