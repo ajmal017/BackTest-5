@@ -88,6 +88,7 @@
                         end_day: document.data_inputs.end_day.value,
                         start_time: document.data_inputs.start_time.value,
                         end_time: document.data_inputs.end_time.value,
+                        broker_commission : document.data_inputs.broker_commission.value,
                         stock_name: company_name[i]
                     }
                     var name = company_name[i];
@@ -153,6 +154,7 @@
             <br>End Day : <input type="text" name="end_day" value="1">
             <br>Start Time : <input type="text" name="start_time" value="9:15">
             <br>End Time : <input type="text" name="end_time" value="3:30">
+            <br>Commission:<input type="text" name="broker_commission" value="10">
             <br>Company Name : <input type=" text " name="company_name" value="TCS.NS">
         </form>
         <button onclick="myFunction()" id="submit">Submit</button>

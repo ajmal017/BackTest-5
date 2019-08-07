@@ -15,17 +15,19 @@
 </head>
 
 <body>
-    {% for company,name in output %}
-    <div class="container" style="float: left;">
-        <h3 style="align-content: center">{{ name }}</h3>
-        <div class="container" style="max-height: 90%; overflow: auto;">
+    {% for company in output %}
+    <div class="container" style="float: left;"></div>
+        <h3 style="align-content: center">{{ company.company_name }}</h3>
+        {% for category in company.Outputs %}
+        <h4>{{ category.Type }}</h4>
+        <div class="container" style="max-height: 90%; overflow: auto; float: left;">
             <table>
                 <tr>
                     <th>Date</th>
                     <th>Action</th>
                     <th>Price</th>
                 </tr>
-                {% for item in company %}
+                {% for item in category.Output %}
                 <tr>
                     <td>{{ item.date }}</td>
                     <td>{{ item.action }}</td>
@@ -34,6 +36,7 @@
                 {% endfor %}
             </table>
         </div>
+        {% endfor %}
     </div>
     {% endfor %}
 </body>

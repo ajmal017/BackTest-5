@@ -23,13 +23,18 @@ def send_output():
     name = request.args.get("name")
     print(name)
     output=[]
-    with open("./Outputs/"+name+'.json','r') as f:
+    output_data=[]
+    with open("./Outputs/"+name+'wob.json','r') as f:
+        output.append(json.load(f))
+        f.close()
+    with open("./Outputs/"+name+'wb.json','r') as f:
         output.append(json.load(f))
         f.close()
     name=[name]
-    # print(output)
-    output = zip(output,name)
-    return render_template('output.html',output=output)
+    typef=['Without Brokerage','With Brokerage']
+    output_data.append({"company_name":name,"Outputs":
+    [{"Type":"Without Brokerage","Output":output[0]},{"Type":"With Brokerage","Output":output[1]}]})
+    return render_template('output.html',output=output_data)
 
 
 @app.route('/send_algo', methods=['POST'])
@@ -49,23 +54,34 @@ def send_algo():
     end_day = x['end_day']
     start_time = x['start_time']
     end_time = x['end_time']
+    broker_commission = x['broker_commission']
     company_name = x['stock_name'].split(",")
-    print(company_name)
-    company_done=[]
-    output=[]
+
+    output_data=[]
+    typef=['Without Brokerage','With Brokerage']
     for name in company_name:
-        open("./Outputs/"+name+'.json', 'w').close()
-        name = name.strip()
-        fd.compute(entry_algo,exit_algo,stop_loss,take_profit,quantity,start_cash,start_year,start_month,start_day,end_year,end_month,end_day,start_time,end_time,name)
-        os.system("python3 ./Scripts/"+name+".py")
-        with open("./Outputs/"+name+'.json','r') as f:
-            output.append(json.load(f))
-            f.close()
-        company_done.append(name)
-        # emit('event')
-    x=zip(output,company_done)
-    print(company_name)
-    return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
+        output=[]
+        for i in range(0,2):
+            if(i==0):
+                open("./Outputs/"+name+'wob.json', 'w').close()
+            else:
+                open("./Outputs/"+name+'wb.json', 'w').close()
+            name = name.strip()
+            fd.compute(entry_algo,exit_algo,stop_loss,take_profit,quantity,start_cash,start_year,start_month,start_day,end_year,end_month,end_day,start_time,end_time,str(1.0*i*float(broker_commission)),name)
+            if(i==0):
+                os.system("python3 ./Scripts/"+name+"wob.py")
+                with open("./Outputs/"+name+'wob.json','r') as f:
+                    output.append(json.load(f))
+                    f.close()
+            else:
+                os.system("python3 ./Scripts/"+name+"wb.py")
+                with open("./Outputs/"+name+'wb.json','r') as f:
+                    output.append(json.load(f))
+                    f.close()
+        output_data.append({"company_name":name,"Outputs":
+        [{"Type":"Without Brokerage","Output":output[0]},{"Type":"With Brokerage","Output":output[1]}]})
+    # output_data=json.loads(output_data)
+    return json.dumps({'success':True,'data':output_data}), 200, {'Content-Type':'application/json'} 
 
 
 
