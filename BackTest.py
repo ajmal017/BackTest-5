@@ -1,4 +1,5 @@
 from flask import (Flask, render_template, request,jsonify,render_template_string)
+from flask_jsglue import JSGlue
 import requests
 import eventlet
 import FetchData as fd
@@ -12,7 +13,7 @@ app = Flask(__name__)
 from flask_cors import CORS
 app.config['SECRET_KEY'] = 'secret!'
 CORS(app)
-
+jsglue = JSGlue(app)
 @app.route('/')
 def hello_world():
     with open('Indicators.json','r') as f:
@@ -20,23 +21,42 @@ def hello_world():
         f.close()
     return render_template('home.html',Indicators=Indicators)
 
-@app.route('/send_output/',methods=['GET'])
+@app.route('/send_output',methods=['POST'])
 def send_output():
-    name = request.args.get("name")
-    print(name)
-    output=[]
+    x = request.get_json()
+    entry_algo = x['entry_algo']
+    exit_algo = x['exit_algo']
+    stop_loss = x['stop_loss']
+    take_profit = x['take_profit']
+    quantity = x['quantity']
+    start_cash = x['start_cash']
+    start_year = x['start_year']
+    start_month = x['start_month']
+    start_day = x['start_day']
+    end_year = x['end_year']
+    end_month = x['end_month']
+    end_day = x['end_day']
+    start_time = x['start_time']
+    end_time = x['end_time']
+    broker_commission = x['broker_commission']
+    stock_name = x['stock_name']
     output_data=[]
-    with open("./Outputs/"+name+'wob.json','r') as f:
+    output=[]
+    temp1 = entry_algo+exit_algo+stop_loss+take_profit+quantity+start_cash+start_year+start_month+start_day+end_year+end_month+end_day+"0"
+    temp2 = entry_algo+exit_algo+stop_loss+take_profit+quantity+start_cash+start_year+start_month+start_day+end_year+end_month+end_day+broker_commission
+    file_name_without_brokerage = stock_name + (hashlib.md5(temp1.encode())).hexdigest()
+    file_name_with_brokerage = stock_name + (hashlib.md5(temp2.encode())).hexdigest()
+    with open("./Outputs/"+file_name_without_brokerage+'.json','r') as f:
         output.append(json.load(f))
         f.close()
-    with open("./Outputs/"+name+'wb.json','r') as f:
+    with open("./Outputs/"+file_name_with_brokerage+'.json','r') as f:
         output.append(json.load(f))
         f.close()
-    name=[name]
+    name=[stock_name]
     typef=['Without Brokerage','With Brokerage']
-    output_data.append({"company_name":name,"Outputs":
+    output_data.append({"company_name":stock_name,"Outputs":
     [{"Type":"Without Brokerage","Output":output[0]},{"Type":"With Brokerage","Output":output[1]}]})
-    return render_template('output.html',output=output_data)
+    return json.dumps({'success':True,'data':render_template('output.html',output=output_data)}), 200, {'Content-Type':'application/json'} 
 
 
 @app.route('/send_algo', methods=['POST'])

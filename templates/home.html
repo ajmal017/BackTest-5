@@ -1,6 +1,7 @@
 <html>
 
 <head>
+        {{ JSGlue.include() }}
     <style>
         table {
             border-collapse: collapse;
@@ -19,10 +20,41 @@
     <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
     <script type="text/javascript" charset="utf-8">
         function get_output(val) {
-            $.get("/send_output/", "name=" + val, function(data) {
-                var tab = window.open('about:blank', '_blank');
-                tab.document.write(data);
-                tab.document.close();
+            // $.get("/send_output/", "name=" + val, function(data) {
+            //     var tab = window.open('about:blank', '_blank');
+            //     tab.document.write(data);
+            //     tab.document.close();
+            // });
+            var data ={
+                entry_algo: document.data_inputs.entry_algo.value,
+                exit_algo: document.data_inputs.exit_algo.value,
+                stop_loss: document.data_inputs.stop_loss.value,
+                take_profit: document.data_inputs.take_profit.value,
+                quantity: document.data_inputs.quantity.value,
+                start_cash: document.data_inputs.start_cash.value,
+                start_year: document.data_inputs.start_year.value,
+                start_month: document.data_inputs.start_month.value,
+                start_day: document.data_inputs.start_day.value,
+                end_year: document.data_inputs.end_year.value,
+                end_month: document.data_inputs.end_month.value,
+                end_day: document.data_inputs.end_day.value,
+                start_time: document.data_inputs.start_time.value,
+                end_time: document.data_inputs.end_time.value,
+                broker_commission : document.data_inputs.broker_commission.value,
+                stock_name: val
+            }
+            $.ajax({
+                type:'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(data),
+                dataType: 'json',
+                url: Flask.url_for('send_output'),
+            }).then(function(e){
+                var tab = window.open('about:blank', '_blank');  
+                tab.document.write(e.data);
+                tab.document.close()
+            },function(error){
+                console.log(error)
             });
         }
 
@@ -97,7 +129,7 @@
                         contentType: 'application/json',
                         data: JSON.stringify(data),
                         dataType: 'json',
-                        url: 'http://192.168.2.142:5000/send_algo',
+                        url: Flask.url_for('send_algo'),
                     }).then(function(e) {
                         console.log("worked")
                         console.log(data.stock_name)
