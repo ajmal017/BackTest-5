@@ -215,14 +215,14 @@ def indicators(algo, ctype, algot):
                 str(l_c)+" = bt.ind.Lowest(self.data.low,period="+period+")"
             l_c += 1
         elif "sma" in exp:
-            temp = exp[4:-1]
+            period = exp[4:-1]
             final += "\n\t\tself.sma_"+algot+ctype + \
-                str(sma_c)+" = bt.indicators.SimpleMovingAverage(self.data,period="+temp+")"
+                str(sma_c)+" = bt.indicators.SimpleMovingAverage(self.data,period="+period+")"
             sma_c += 1
         elif "ema" in exp:
-            temp = exp[4:-1]
+            period = exp[4:-1]
             final += "\n\t\tself.ema_"+algot+ctype + \
-                str(ema_c)+" = bt.indicators.ExponentialMovingAverage(self.data,period="+temp+")"
+                str(ema_c)+" = bt.indicators.ExponentialMovingAverage(self.data,period="+period+")"
             ema_c += 1
         elif "adx" in exp:
             temp = exp[4:-1]
