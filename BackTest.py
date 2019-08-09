@@ -60,40 +60,45 @@ def send_algo():
     company_name = x['stock_name'].split(",")
     output_data=[]
     for name in company_name:
-        temp = entry_algo+exit_algo+stop_loss+take_profit+quantity+start_cash+start_year+start_month+start_day+end_year+end_month+end_day+broker_commission
-        temp = hashlib.md5(temp.encode())
-        file_name = name+ temp.hexdigest()
-        output=[]
-        if(path.exists("./Outputs/"+file_name+'.json')):
-            if(float(broker_commission)==0):
-                with open("./Outputs/"+file_name+'.json','r') as f:
-                    output.append(json.load(f))
-                    f.close()
-                output_data.append({"company_name":name,"Type":"Without Brokerage","Output":output[0]})
+        temp1 = entry_algo+exit_algo+stop_loss+take_profit+quantity+start_cash+start_year+start_month+start_day+end_year+end_month+end_day+"0"
+        temp2 = entry_algo+exit_algo+stop_loss+take_profit+quantity+start_cash+start_year+start_month+start_day+end_year+end_month+end_day+broker_commission
+        file_name_without_brokerage = name + (hashlib.md5(temp1.encode())).hexdigest()
+        file_name_with_brokerage = name + (hashlib.md5(temp2.encode())).hexdigest()
+        file_name = [file_name_without_brokerage,file_name_with_brokerage]
+        broker_type = [0,float(broker_commission)]
+        i=0
+        for i in range(0,2):
+            output=[]
+            if(path.exists("./Outputs/"+file_name[i]+'.json')):
+                if(broker_type[i]==0):
+                    with open("./Outputs/"+file_name[i]+'.json','r') as f:
+                        output.append(json.load(f))
+                        f.close()
+                    output_data.append({"company_name":name,"Type":"Without Brokerage","Output":output[0]})
+                else:
+                    with open("./Outputs/"+file_name[i]+'.json','r') as f:
+                        output.append(json.load(f))
+                        f.close()
+                    output_data.append({"company_name":name,"Type":"With Brokerage","Output":output[0]})
             else:
-                with open("./Outputs/"+file_name+'.json','r') as f:
-                    output.append(json.load(f))
-                    f.close()
-                output_data.append({"company_name":name,"Type":"With Brokerage","Output":output[0]})
-        else:
-            if(float(broker_commission)==0):
-                open("./Outputs/"+file_name+'.json', 'w').close()
-                name = name.strip()
-                fd.compute(entry_algo,exit_algo,stop_loss,take_profit,quantity,start_cash,start_year,start_month,start_day,end_year,end_month,end_day,start_time,end_time,broker_commission,name,file_name)
-                os.system("python3 ./Scripts/"+file_name+".py")
-                with open("./Outputs/"+file_name+'.json','r') as f:
-                    output.append(json.load(f))
-                    f.close()
-                output_data.append({"company_name":name,"Type":"Without Brokerage","Output":output[0]})
-            else:
-                open("./Outputs/"+file_name+'.json', 'w').close()
-                name = name.strip()
-                fd.compute(entry_algo,exit_algo,stop_loss,take_profit,quantity,start_cash,start_year,start_month,start_day,end_year,end_month,end_day,start_time,end_time,broker_commission,name,file_name)
-                os.system("python3 ./Scripts/"+file_name+".py")
-                with open("./Outputs/"+file_name+'.json','r') as f:
-                    output.append(json.load(f))
-                    f.close()
-                output_data.append({"company_name":name,"Type":"With Brokerage","Output":output[0]})
+                if(broker_type[i]==0):
+                    open("./Outputs/"+file_name[i]+'.json', 'w').close()
+                    name = name.strip()
+                    fd.compute(entry_algo,exit_algo,stop_loss,take_profit,quantity,start_cash,start_year,start_month,start_day,end_year,end_month,end_day,start_time,end_time,str(broker_type[i]),name,file_name[i])
+                    os.system("python3 ./Scripts/"+file_name[i]+".py")
+                    with open("./Outputs/"+file_name[i]+'.json','r') as f:
+                        output.append(json.load(f))
+                        f.close()
+                    output_data.append({"company_name":name,"Type":"Without Brokerage","Output":output[0]})
+                else:
+                    open("./Outputs/"+file_name[i]+'.json', 'w').close()
+                    name = name.strip()
+                    fd.compute(entry_algo,exit_algo,stop_loss,take_profit,quantity,start_cash,start_year,start_month,start_day,end_year,end_month,end_day,start_time,end_time,str(broker_type[i]),name,file_name[i])
+                    os.system("python3 ./Scripts/"+file_name[i]+".py")
+                    with open("./Outputs/"+file_name[i]+'.json','r') as f:
+                        output.append(json.load(f))
+                        f.close()
+                    output_data.append({"company_name":name,"Type":"With Brokerage","Output":output[0]})
     return json.dumps({'success':True,'data':output_data}), 200, {'Content-Type':'application/json'} 
 
 

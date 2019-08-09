@@ -3,6 +3,7 @@
 <p align="center">Open source backtesting tool.</p>
 
 # Table of Content
+
 + [Getting Started](#getting-started)
 + [Adding New Features](#adding-new-features)
 + [Built With](#built-with)
@@ -188,7 +189,7 @@ To add new features (eg: new indicators, chart patterns), read the following ste
 
             ```python
 
-                elif "sma" in exp:
+            elif "sma" in exp:
 
             ```
 
@@ -263,7 +264,6 @@ To add new features (eg: new indicators, chart patterns), read the following ste
             str(sma_c) - Append the counter of the variable to the variable name<br>
 
             These 2 things together ensure that the variable mentioned in the conditional statement is the same as the indicator's initialising statement.
-
 
 ## Built With
 
