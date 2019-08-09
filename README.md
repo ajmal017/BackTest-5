@@ -1,6 +1,6 @@
 
 <p align="center">BackTest</p>
-<p align="center">Open source backtesting tool.</p>
+<p align="center">Trading Algorithm backtesting tool.</p>
 
 # Table of Content
 
