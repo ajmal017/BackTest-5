@@ -383,7 +383,7 @@ def expressions(conditions, ctype):
 # get input from server and form script
 
 
-def compute(enalgo, exalgo, stop_loss, take_profit, quantity, sc, sy, sm, sd, ey, em, ed,start_time,end_time,broker_commission, name):
+def compute(enalgo, exalgo, stop_loss, take_profit, quantity, sc, sy, sm, sd, ey, em, ed,start_time,end_time,broker_commission, name,file_name):
 
     # split the algo with " "
     enalgo = enalgo.split()
@@ -405,7 +405,8 @@ def compute(enalgo, exalgo, stop_loss, take_profit, quantity, sc, sy, sm, sd, ey
     prog += "\n\tdef notify_order(self, order):\n\t\tif order.status in [order.Submitted, order.Accepted]:\n\t\t\treturn\n\t\tif order.status in [order.Completed]:\n\t\t\tif order.isbuy():\n\t\t\t\tself.log('BUY EXECUTED',round(order.executed.price,3))"
     prog += "\n\t\t\t\tself.stop_price = order.executed.price* (1.0 - self.stop_loss)\n\t\t\t\tself.take_price = order.executed.price*(1.0 + self.take_profit)"
     prog += "\n\t\t\telif order.issell():\n\t\t\t\tself.log('SELL EXECUTED',round(order.executed.price,3))\n\t\telif order.status in [order.Canceled, order.Margin, order.Rejected]:\n\t\t\treturn\n\t\tself.order=None"
-    prog += "\n\tdef notify_trade(self,trade):\n\t\tif not trade.isclosed:\n\t\t\treturn\n\t\tself.log('OPERATION GROSS PROFIT',round(trade.pnl,3))\n\t\tself.log('OPERATION NET PROFIT',round(trade.pnlcomm,3))"
+    if(float(broker_commission)!=0):
+        prog += "\n\tdef notify_trade(self,trade):\n\t\tif not trade.isclosed:\n\t\t\treturn\n\t\tself.log('OPERATION GROSS PROFIT',round(trade.pnl,3))\n\t\tself.log('OPERATION NET PROFIT',round(trade.pnlcomm,3))"
     prog += "\n\tdef next(self):"
     start_time=start_time.split(":")
     end_time=end_time.split(":")
@@ -431,23 +432,19 @@ def compute(enalgo, exalgo, stop_loss, take_profit, quantity, sc, sy, sm, sd, ey
     # define name of stock, starting cash and time period
     prog += "\nif __name__ == '__main__':"
     prog += "\n\tcerebro = bt.Cerebro(preload=True,runonce=True)\n\tcerebro.addstrategy(TestStrategy)\n\tcerebro.broker.setcash("+sc+")"
-    prog += "\n\tcerebro.broker.setcommission(commission="+str(float(broker_commission)/100)+")"
+    if(float(broker_commission)!=0):
+        prog += "\n\tcerebro.broker.setcommission(commission="+str(float(broker_commission)/100)+")"
+    prog += "\n\tbroker_commission="+broker_commission
     prog += "\n\tdata = bt.feeds.YahooFinanceData(dataname = '"+name+"',name = '"+name+"',fromdate = datetime.datetime(" + \
         sy+","+sm+","+sd + \
             "),todate = datetime.datetime("+ey+","+em+","+ed+"),reverse=False)"
     prog += "\n\tx = datetime.datetime("+sy+","+sm+","+sd+")"
     prog += "\n\td = {'date':str(x.date().isoformat()),'action':'Starting Portfolio Value','price':"+sc+"}"
-    prog += "\n\toutput.append(d)\n\tbroker_commission="+broker_commission
+    prog += "\n\toutput.append(d)"
     prog += "\n\tcerebro.adddata(data)\n\tcerebro.run()\n\tep = cerebro.broker.getvalue()\n\tx = datetime.datetime("+ey+","+em+","+ed+")"
     prog += "\n\td = {'date':str(x.date().isoformat()),'action':'Final Portfolio Value','price':round(ep,3)}\n\toutput.append(d)\n\toutput=json.dumps(output)"
-    prog += "\n\tif(broker_commission==0):\n\t\twith open('./Outputs/"+name+"wob.json','w') as f:\n\t\t\tf.write(output)\n\t\t\tf.close()\n\telse:\n\t\twith open('./Outputs/"+name+"wb.json','w') as f:\n\t\t\tf.write(output)\n\t\t\tf.close()\n\t#cerebro.plot()"
+    prog += "\n\twith open('./Outputs/"+file_name+".json','w') as f:\n\t\tf.write(output)\n\t\tf.close()\n\t#cerebro.plot()"
 
-    # write to script
-    if(float(broker_commission)==0):
-        with open("./Scripts/"+name+'wob.py', 'w') as f:
-            f.write(prog)
-            f.close()
-    else:
-        with open("./Scripts/"+name+'wb.py', 'w') as f:
-            f.write(prog)
-            f.close()
+    with open("./Scripts/"+file_name+'.py', 'w') as f:
+        f.write(prog)
+        f.close()

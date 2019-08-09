@@ -32,6 +32,11 @@ $ cd BackTest
 $ sudo apt-get install python3-pip
 $ pip install -r requirements.txt
 ```
+If you want to use additional charting patterns(DOJI,MARUBOZU,etc) or indicators from the TA-Lib library, install the ta-lib python wrapper
+```
+pip install ta-lib
+```
+Note: This requires the underlying TA-Lib library to already be installed in your device. See [TA-Lib](https://mrjbq7.github.io/ta-lib/install.html) for further instructions.
 Running the server
 ```
 $ gunicorn --workers (2*<number of cores>+1) --bind 0.0.0.0:5000 wsgi:app
@@ -43,6 +48,7 @@ The application will now be running on https://<your_IP_Address>:5000/
 + [Flask](https://palletsprojects.com/p/flask/) - Server Framework
 + [Gunicorn](https://gunicorn.org/) - Python WSGI HTTP Server for UNIX
 + [Backtrader](https://www.backtrader.com/) - Backtesting module
++ [TA-Lib](http://ta-lib.org/) - Technical Analysis Library
 
 ## File Structure <a name="file_structure"></a>
 /BackTest.py  : Main server code <br>

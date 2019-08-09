@@ -1,5 +1,5 @@
 # !/bin/bash
-sudo apt-get install python3.6 python3-pip
+sudo apt-get install python3.6 python3-pip python3-dev 
 pip install -r requirements.txt
 cores=$(nproc)
 echo "Cores = ${cores}"
