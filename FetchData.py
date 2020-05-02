@@ -16,7 +16,8 @@ algot = type of algo en = entry ex = exit
 all variable names are distinct
 
 '''
-
+import os.path
+from os import path
 
 def indicators(algo, ctype, algot):
     # number of times an indicator has already been mentioned
@@ -383,14 +384,13 @@ def expressions(conditions, ctype):
 # get input from server and form script
 
 
-def compute(enalgo, exalgo, stop_loss, take_profit, quantity, sc, sy, sm, sd, ey, em, ed,start_time,end_time,broker_commission, name,file_name):
-
+def compute(enalgo, exalgo, stop_loss, take_profit, quantity, sc, sy, sm, sd, ey, em, ed,start_time,end_time,broker_commission, name,file_name,data_file_name):
     # split the algo with " "
     enalgo = enalgo.split()
     exalgo = exalgo.split()
 
     #import statements
-    prog = "from __future__ import (absolute_import, division, print_function,unicode_literals) \nimport datetime \nimport backtrader as bt \nimport json\noutput=[]\nclass TestStrategy(bt.Strategy):\n\tdef log(self, txt, price,dt=None):\n\t\tdt = dt or self.datas[0].datetime.date(0)\n\t\tnd = {'date':str(dt.isoformat()),'action':txt,'price':price}\n\t\toutput.append(nd)"
+    prog = "from __future__ import (absolute_import, division, print_function,unicode_literals) \nimport datetime \nimport backtrader as bt \nimport json\nimport yfinance as yf \noutput=[]\nclass TestStrategy(bt.Strategy):\n\tdef log(self, txt, price,dt=None):\n\t\tdt = dt or self.datas[0].datetime.date(0)\n\t\tnd = {'date':str(dt.isoformat()),'action':txt,'price':price}\n\t\toutput.append(nd)"
     prog += "\n\tdef __init__(self):"
 
     # initialising stop loss and take profit
@@ -435,9 +435,10 @@ def compute(enalgo, exalgo, stop_loss, take_profit, quantity, sc, sy, sm, sd, ey
     if(float(broker_commission)!=0):
         prog += "\n\tcerebro.broker.setcommission(commission="+str(float(broker_commission)/100)+")"
     prog += "\n\tbroker_commission="+broker_commission
-    prog += "\n\tdata = bt.feeds.YahooFinanceData(dataname = '"+name+"',name = '"+name+"',fromdate = datetime.datetime(" + \
-        sy+","+sm+","+sd + \
-            "),todate = datetime.datetime("+ey+","+em+","+ed+"),reverse=False)"
+    if(path.exists("./Data/"+data_file_name+".csv")==False):
+        prog += "\n\ttemp_data= yf.download('"+name+"', start = '"+sy+"-"+sm+"-"+sd+"', end = '"+ey +"-"+em+"-"+ed+"')"
+        prog += "\n\ttemp_data.to_csv('./Data/"+data_file_name+".csv')"
+    prog += "\n\tdata = bt.feeds.YahooFinanceCSVData(dataname = './Data/"+data_file_name+".csv',name = '"+name+"' ,reverse=False)"
     prog += "\n\tx = datetime.datetime("+sy+","+sm+","+sd+")"
     prog += "\n\td = {'date':str(x.date().isoformat()),'action':'Starting Portfolio Value','price':"+sc+"}"
     prog += "\n\toutput.append(d)"

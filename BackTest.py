@@ -39,7 +39,7 @@ def send_output():
     start_time = x['start_time']
     end_time = x['end_time']
     broker_commission = x['broker_commission']
-    stock_name = x['stock_name']
+    stock_name = x['stock_name'].replace(" ","")
     output_data=[]
     output=[]
     temp1 = entry_algo+exit_algo+stop_loss+take_profit+quantity+start_cash+start_year+start_month+start_day+end_year+end_month+end_day+"0"
@@ -77,13 +77,15 @@ def send_algo():
     start_time = x['start_time']
     end_time = x['end_time']
     broker_commission = x['broker_commission']
-    company_name = x['stock_name'].split(",")
+    company_name = x['stock_name'].replace(" ","").split(",")
     output_data=[]
     for name in company_name:
         temp1 = entry_algo+exit_algo+stop_loss+take_profit+quantity+start_cash+start_year+start_month+start_day+end_year+end_month+end_day+"0"
         temp2 = entry_algo+exit_algo+stop_loss+take_profit+quantity+start_cash+start_year+start_month+start_day+end_year+end_month+end_day+broker_commission
+        temp3 = start_year+start_month+start_day+end_year+end_month+end_year
         file_name_without_brokerage = name + (hashlib.md5(temp1.encode())).hexdigest()
         file_name_with_brokerage = name + (hashlib.md5(temp2.encode())).hexdigest()
+        data_file_name = name + (hashlib.md5(temp3.encode())).hexdigest()
         file_name = [file_name_without_brokerage,file_name_with_brokerage]
         broker_type = [0,float(broker_commission)]
         i=0
@@ -103,8 +105,7 @@ def send_algo():
             else:
                 if(broker_type[i]==0):
                     open("./Outputs/"+file_name[i]+'.json', 'w').close()
-                    name = name.strip()
-                    fd.compute(entry_algo,exit_algo,stop_loss,take_profit,quantity,start_cash,start_year,start_month,start_day,end_year,end_month,end_day,start_time,end_time,str(broker_type[i]),name,file_name[i])
+                    fd.compute(entry_algo,exit_algo,stop_loss,take_profit,quantity,start_cash,start_year,start_month,start_day,end_year,end_month,end_day,start_time,end_time,str(broker_type[i]),name,file_name[i], data_file_name)
                     os.system("python3 ./Scripts/"+file_name[i]+".py")
                     with open("./Outputs/"+file_name[i]+'.json','r') as f:
                         output.append(json.load(f))
@@ -112,8 +113,7 @@ def send_algo():
                     output_data.append({"company_name":name,"Type":"Without Brokerage","Output":output[0]})
                 else:
                     open("./Outputs/"+file_name[i]+'.json', 'w').close()
-                    name = name.strip()
-                    fd.compute(entry_algo,exit_algo,stop_loss,take_profit,quantity,start_cash,start_year,start_month,start_day,end_year,end_month,end_day,start_time,end_time,str(broker_type[i]),name,file_name[i])
+                    fd.compute(entry_algo,exit_algo,stop_loss,take_profit,quantity,start_cash,start_year,start_month,start_day,end_year,end_month,end_day,start_time,end_time,str(broker_type[i]),name,file_name[i], data_file_name)
                     os.system("python3 ./Scripts/"+file_name[i]+".py")
                     with open("./Outputs/"+file_name[i]+'.json','r') as f:
                         output.append(json.load(f))

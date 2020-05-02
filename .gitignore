@@ -1,6 +1,7 @@
 *.pyc
 Scripts/
 Outputs/
+Data/
 __pycache__/
 .ipynb_checkpoints/
 .vscode/
@@ -13,7 +14,6 @@ data.json
 stockPY.py
 test.py
 backtestingg.py
-wsgi.py
 BackTestenv
 output.json
 
